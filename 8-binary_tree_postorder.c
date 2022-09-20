@@ -2,9 +2,10 @@
 
 /**
  * binary_tree_postorder - postorder traversal
- * @tree: the three
+ * @tree: the tree
  * @func: func to execute in the node
  */
+
 void binary_tree_postorder(const binary_tree_t *tree, void (*func)(int))
 {
 	if (func != NULL && tree != NULL)
