@@ -5,6 +5,7 @@
  * @node: input
  * Return: 0 in false 1 in true
  */
+
 int binary_tree_is_root(const binary_tree_t *node)
 {
 	int isRoot;
