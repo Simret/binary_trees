@@ -5,6 +5,7 @@
  * @node: node
  * Return: 0 in false 1 in true
  */
+
 int binary_tree_is_leaf(const binary_tree_t *node)
 {
 	int isALeaf;
