@@ -1,59 +1,85 @@
 #include "binary_trees.h"
 
 /**
- * binary_tree_is_complete - is complete
+ * binary_tree_levelorder - level order
  * @tree: tree
- * Return: 0 in false 1 in true
+ * @func: func
+ * Return: void
  */
 
-int binary_tree_is_complete(const binary_tree_t *tree)
+void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 {
-	unsigned int i = 0;
-	size_t size;
+	size_t i, height;
 
-	if (tree == NULL)
-		return (0);
-
-	size = binary_tree_size(tree);
-	return (check(tree, i, size));
+	if (tree == NULL || func == NULL)
+		return;
+	height = binary_tree_height(tree);
+	for (i = 0; i <= height; i++)
+		print_tree(tree, func, i);
 }
 
 /**
- * check - helper func for binary_tree_is_complete
+ * print_tree - prints
  * @tree: tree
- * @index: current node
- * @size: size
- * Return: 0 in false 1 in true
+ * @func: func
+ * @level: depth
  */
 
-int check(const binary_tree_t *tree, unsigned int index, size_t size)
+void print_tree(const binary_tree_t *tree, void (*func)(int), size_t level)
 {
-	int isComplete = 0;
-
-	if (tree == NULL)
-		return (1);
-
-	if (index >= size)
-		return (0);
-
-	isComplete = check(tree->left, 2 * index + 1, size) && check(tree->right, 2 * index + 2, size);
-	return (isComplete);
+	if (level == 0)
+		func(tree->n);
+	else
+	{
+		print_tree(tree->left, func, level - 1);
+		print_tree(tree->right, func, level - 1);
+	}
 }
 
 /**
- * binary_tree_size - measure the size
- * @tree: input
- * Return: size
+ * binary_tree_height - height of a binary tree
+ * @tree: input tree
+ * Return: height of tree
  */
 
-size_t binary_tree_size(const binary_tree_t *tree)
+size_t binary_tree_height(const binary_tree_t *tree)
 {
-	int size;
+	if (tree == NULL)
+		return (0);
+	return (measure(tree) - 1);
+}
+
+/**
+ * measure - helper
+ * @tree: input tree
+ * Return: height of tree
+ */
+
+size_t measure(const binary_tree_t *tree)
+{
+	size_t left, right;
+	int total;
 
 	if (tree == NULL)
 		return (0);
 
-	size = 1 + binary_tree_size(tree->right) + binary_tree_size(tree->left);
+	left = measure(tree->left);
+	right = measure(tree->right);
+	total = max(left, right) + 1;
+	return (total);
+}
 
-	return (size);
+/**
+ * max - helper
+ * @a: the first number
+ * @b: the second number
+ * Return: height of tree
+ */
+
+int max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	else
+		return (b);
 }
