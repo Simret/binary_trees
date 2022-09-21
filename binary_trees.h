@@ -48,5 +48,6 @@ binary_tree_t *binary_trees_ancestor(const binary_tree_t *first, const binary_tr
 
 size_t measure(const binary_tree_t *tree);
 int max(int a, int b);
+int check(const binary_tree_t *tree, unsigned int index, size_t size);
 
 #endif /* BINARY_T_H */
